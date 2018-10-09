@@ -5,7 +5,7 @@
     <!-- 页面meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>商品管理</title>
+    <title>订单管理</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
     <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
@@ -31,23 +31,33 @@
 
 </head>
 <body class="hold-transition skin-red sidebar-mini"
-	  ng-app="pinyougou" ng-controller="orderController" ng-init="searchEntity.status='1'">
+	  ng-app="pinyougou" ng-controller="orderController">
   <!-- .box-body -->
                 
                     <div class="box-header with-border">
-                        <h3 class="box-title">商品管理</h3>
+                        <h3 class="box-title">订单管理</h3>
                     </div>
 
                     <div class="box-body">
 
                         <!-- 数据表格 -->
                         <div class="table-box">
-                            <div class="box-tools pull-right">
-                                <div class="has-feedback">
-									商品名称：<input >
-									<button class="btn btn-default" >查询</button>                                    
-                                </div>
-                            </div>
+							<div class="box-tools pull-right">
+								<div class="has-feedback">
+									状态：<select>
+									<option value="" ng-click="search(searchEntity.status='')">全部</option>
+									<option value="1" ng-click="search(searchEntity.status='1')">未付款</option>
+									<option value="2" ng-click="search(searchEntity.status='2')">已付款</option>
+									<option value="3" ng-click="search(searchEntity.status='3')">未发货</option>
+									<option value="4" ng-click="search(searchEntity.status='4')">已发货</option>
+									<option value="5" ng-click="search(searchEntity.status='5')">交易成功</option>
+									<option value="6" ng-click="search(searchEntity.status='6')">交易关闭</option>
+									<option value="7" ng-click="search(searchEntity.status='7')">待评价</option>
+								</select>
+									订单：<input >
+									<button class="btn btn-default" >查询</button>
+								</div>
+							</div>
                             <!--工具栏/-->
 
 			                  <!--数据列表-->
@@ -64,6 +74,10 @@
 									      <th class="sorting">买家昵称</th>
 										  <th class="sorting">下单时间</th>
 										  <th class="sorting">订单更新时间</th>
+										  <th class="sorting">物流名称</th>
+										  <th class="sorting">物流单号</th>
+										  <th class="sorting">交易完成时间</th>
+										  <th class="sorting">交易关闭时间</th>
 									      <th class="sorting">状态</th>
 									      <th class="sorting">买家留言</th>
 					                      <th class="text-center">操作</th>
@@ -79,11 +93,15 @@
 				                          <td>{{entity.buyerNick}}</td>
 				                          <td>{{entity.createTime}}</td>
 				                          <td>{{entity.updateTime}}</td>
-				                          <td>{{status}}</td>
+				                          <td>{{entity.shippingName}}</td>
+				                          <td>{{entity.shippingCode}}</td>
+				                          <td>{{entity.endTime}}</td>
+				                          <td>{{entity.closeTime}}</td>
+				                          <td>{{statusList[entity.status]}}</td>
 				                          <td>{{entity.buyerMessage}}</td>
 										  <td class="text-center">
 											  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal"
-													  ng-click="findOne(entity.orderId)">详情
+													  ng-click="findOne(entity.orderId)">修改收货信息
 											  </button>
 										  </td>
 			                          </tr>
@@ -100,7 +118,7 @@
                     <!-- /.box-body -->
 
   <!-- 编辑窗口 -->
-  <!--<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 		  <div class="modal-content">
 			  <div class="modal-header">
@@ -110,54 +128,21 @@
 			  <div class="modal-body">
 				  <table class="table table-bordered table-striped" width="800px">
 					  <tr>
-						  <td>内容类目ID</td>
-						  <td>
-							  &lt;!&ndash;<input  class="form-control" ng-model="entity.categoryId" placeholder="内容类目ID" >&ndash;&gt;
-							  <select class="form-control" ng-model="entity.categoryId"
-									  ng-options="category.id as category.name for category in contentCategoryList"></select>
-						  </td>
-
+						  <td>收货人</td>
+						  <td><input class="form-control" ng-model="entity.receiver" placeholder="收货人"></td>
 					  </tr>
 					  <tr>
-
-						  <td>内容标题</td>
-
-						  <td><input class="form-control" ng-model="entity.title" placeholder="内容标题"></td>
-
+						  <td>收货人手机</td>
+						  <td><input class="form-control" ng-model="entity.receiverMobile" placeholder="收货人手机"></td>
 					  </tr>
 					  <tr>
-
-						  <td>链接</td>
-
-						  <td><input class="form-control" ng-model="entity.url" placeholder="链接"></td>
-
+						  <td>收货人邮编</td>
+						  <td><input class="form-control" ng-model="entity.receiverZipCode" placeholder="收货人邮编"></td>
 					  </tr>
 					  <tr>
-
-						  <td>图片</td>
-
-						  <td>
-							  <input type="file" id="file">
-							  <button ng-click="uploadFile()">上传</button>
-							  <img alt="" src="{{entity.pic}}" height="100px" width="200px">
-						  </td>
-
+						  <td>收货人地区名称(省，市，县)街道</td>
+						  <td><input class="form-control" ng-model="entity.receiverAreaName" placeholder="收货人地区名称(省，市，县)街道"></td>
 					  </tr>
-					  <tr>
-
-						  <td>状态</td>
-
-						  <td><input type="checkbox" ng-model="entity.status" ng-true-value="1" ng-false-value="0"></td>
-
-					  </tr>
-					  <tr>
-
-						  <td>排序</td>
-
-						  <td><input class="form-control" ng-model="entity.sortOrder" placeholder="排序"></td>
-
-					  </tr>
-
 				  </table>
 			  </div>
 			  <div class="modal-footer">
@@ -166,7 +151,7 @@
 			  </div>
 		  </div>
 	  </div>
-  </div>-->
+  </div>
 </body>
 
 </html>

@@ -5,7 +5,7 @@
     <!-- 页面meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>商品管理</title>
+    <title>订单管理</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
     <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
@@ -24,30 +24,30 @@
 
 	<!-- 把提出去的JS 引回来-->
 	<script type="text/javascript" src="../js/base_pagination.js"></script>
-	<script src="../js/service/orderService.js"></script>
 	<script src="../js/controller/baseController.js"></script>
-	<script src="../js/controller/orderController.js"></script>
+	<script src="../js/service/seckillOrderService.js"></script>
+	<script src="../js/controller/seckillOrderController.js"></script>
 
 
 </head>
 <body class="hold-transition skin-red sidebar-mini"
-	  ng-app="pinyougou" ng-controller="orderController" ng-init="searchEntity.status='7'">
+	  ng-app="pinyougou" ng-controller="seckillOrderController">
   <!-- .box-body -->
                 
                     <div class="box-header with-border">
-                        <h3 class="box-title">商品管理</h3>
+                        <h3 class="box-title">订单管理</h3>
                     </div>
 
                     <div class="box-body">
 
                         <!-- 数据表格 -->
                         <div class="table-box">
-                            <div class="box-tools pull-right">
-                                <div class="has-feedback">
-									商品名称：<input >
-									<button class="btn btn-default" >查询</button>                                    
-                                </div>
-                            </div>
+							<div class="box-tools pull-right">
+								<div class="has-feedback">
+									订单：<input >
+									<button class="btn btn-default" >查询</button>
+								</div>
+							</div>
                             <!--工具栏/-->
 
 			                  <!--数据列表-->
@@ -57,33 +57,29 @@
 			                              <th class="" style="padding-right:0px">
 			                                  <input id="selall" type="checkbox" class="icheckbox_square-blue">
 			                              </th>
-										  <th class="sorting_asc">订单ID</th>
-									      <th class="sorting">用户ID</th>
-									      <th class="sorting">收货人手机</th>
-									      <th class="sorting">支付类型</th>
-									      <th class="sorting">买家昵称</th>
-										  <th class="sorting">下单时间</th>
-										  <th class="sorting">订单更新时间</th>
-									      <th class="sorting">状态</th>
-									      <th class="sorting">买家留言</th>
+										  <th class="sorting_asc">秒杀订单ID</th>
+									      <th class="sorting">秒杀商品ID</th>
+									      <th class="sorting">用户</th>
+									      <th class="sorting">支付金额</th>
+									      <th class="sorting">支付时间</th>
+										  <th class="sorting">状态</th>
+										  <th class="sorting">交易流水</th>
 					                      <th class="text-center">操作</th>
 			                          </tr>
 			                      </thead>
 			                      <tbody>
 			                          <tr ng-repeat="entity in list">
 			                              <td><input  type="checkbox" ng-click="updateSelection($event,entity.id)"></td>
-				                          <td>{{entity.orderId}}</td>
+				                          <td>{{entity.id}}</td>
+				                          <td>{{entity.seckillId}}</td>
 				                          <td>{{entity.userId}}</td>
-				                          <td>{{entity.receiverMobile}}</td>
-				                          <td>{{entity.paymentType==1?"在线支付":"货到付款"}}</td>
-				                          <td>{{entity.buyerNick}}</td>
-				                          <td>{{entity.createTime}}</td>
-				                          <td>{{entity.updateTime}}</td>
-				                          <td>{{status}}</td>
-				                          <td>{{entity.buyerMessage}}</td>
+				                          <td>{{entity.money}}</td>
+				                          <td>{{entity.payTime}}</td>
+				                          <td>{{entity.status=='1'?'正常':'失败'}}</td>
+				                          <td>{{entity.transactionId}}</td>
 										  <td class="text-center">
 											  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal"
-													  ng-click="findOne(entity.orderId)">详情
+													  ng-click="findOne(entity.orderId)">收货信息
 											  </button>
 										  </td>
 			                          </tr>
@@ -100,7 +96,7 @@
                     <!-- /.box-body -->
 
   <!-- 编辑窗口 -->
-  <!--<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 		  <div class="modal-content">
 			  <div class="modal-header">
@@ -110,54 +106,17 @@
 			  <div class="modal-body">
 				  <table class="table table-bordered table-striped" width="800px">
 					  <tr>
-						  <td>内容类目ID</td>
-						  <td>
-							  &lt;!&ndash;<input  class="form-control" ng-model="entity.categoryId" placeholder="内容类目ID" >&ndash;&gt;
-							  <select class="form-control" ng-model="entity.categoryId"
-									  ng-options="category.id as category.name for category in contentCategoryList"></select>
-						  </td>
-
+						  <td>收货人</td>
+						  <td><input class="form-control" ng-model="entity.receiver" placeholder="收货人"></td>
 					  </tr>
 					  <tr>
-
-						  <td>内容标题</td>
-
-						  <td><input class="form-control" ng-model="entity.title" placeholder="内容标题"></td>
-
+						  <td>收货人手机</td>
+						  <td><input class="form-control" ng-model="entity.receiverMobile" placeholder="收货人手机"></td>
 					  </tr>
 					  <tr>
-
-						  <td>链接</td>
-
-						  <td><input class="form-control" ng-model="entity.url" placeholder="链接"></td>
-
+						  <td>收货人邮编</td>
+						  <td><input class="form-control" ng-model="entity.receiverZipCode" placeholder="收货人邮编"></td>
 					  </tr>
-					  <tr>
-
-						  <td>图片</td>
-
-						  <td>
-							  <input type="file" id="file">
-							  <button ng-click="uploadFile()">上传</button>
-							  <img alt="" src="{{entity.pic}}" height="100px" width="200px">
-						  </td>
-
-					  </tr>
-					  <tr>
-
-						  <td>状态</td>
-
-						  <td><input type="checkbox" ng-model="entity.status" ng-true-value="1" ng-false-value="0"></td>
-
-					  </tr>
-					  <tr>
-
-						  <td>排序</td>
-
-						  <td><input class="form-control" ng-model="entity.sortOrder" placeholder="排序"></td>
-
-					  </tr>
-
 				  </table>
 			  </div>
 			  <div class="modal-footer">
@@ -166,7 +125,7 @@
 			  </div>
 		  </div>
 	  </div>
-  </div>-->
+  </div>
 </body>
 
 </html>
