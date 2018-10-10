@@ -247,7 +247,13 @@
                                             </ul>
                                         </td>
                                         <td width="5%" class="center">1</td>
-                                        <td width="8%" class="center"></td>
+                                        <td width="8%" class="center">
+                                            <ul class="unstyled">
+                                                <li ng-if="entity.seckillOrder.status == 1 || entity.seckillOrder.status == 2 ">未发货</li>
+                                                <li ng-if="entity.seckillOrder.status == 3">已发货</li>
+                                                <li ng-if="entity.seckillOrder.status == 1 || entity.seckillOrder.status == 2 || entity.seckillOrder.status == 3"><a>退货/退款</a></li>
+                                            </ul>
+                                        </td>
                                         <td width="10%" class="center">
                                             <ul class="unstyled">
                                                 <li>¥{{entity.seckillGoods.costPrice}}</li>
@@ -256,14 +262,19 @@
                                         </td>
                                         <td width="10%" class="center">
                                             <ul class="unstyled">
-                                                <li>等待卖家付款</li>
+                                                <li ng-if="entity.seckillOrder.status == 0">等待卖家付款</li>
+                                                <li ng-if="entity.seckillOrder.status == 1 || entity.seckillOrder.status == 2 ">等待发货</li>
+                                                <li ng-if="entity.seckillOrder.status == 3">等待收货</li>
+                                                <li ng-if="entity.seckillOrder.status == 5">订单已关闭</li>
                                                 <li><a ng-click="orderDetail(entity.seckillOrder.strId)" class="btn">订单详情 </a></li>
                                             </ul>
                                         </td>
                                         <td width="10%" class="center">
                                             <ul class="unstyled">
-                                                <li><a ng-click="payNow(entity.seckillOrder.strId)" class="sui-btn btn-info">立即付款</a></li>
-                                                <li ><span ng-click="delete(entity.seckillOrder.strId)" class="sui-btn" >取消订单</span></li>
+                                                <li ng-if="entity.seckillOrder.status == 0"><a ng-click="payNow(entity.seckillOrder.strId)" class="sui-btn btn-info">立即付款</a></li>
+                                                <li ng-if="entity.seckillOrder.status == 1 || entity.seckillOrder.status == 2 "><a ng-click="payNow(entity.seckillOrder.strId)" class="sui-btn btn-info">提醒发货</a></li>
+                                                <li ng-if="entity.seckillOrder.status == 3"><a ng-click="payNow(entity.seckillOrder.strId)" class="sui-btn btn-info">确认收货</a></li>
+                                                <li ng-if="entity.seckillOrder.status != 5"><span ng-click="delete(entity.seckillOrder.strId)" class="sui-btn" >取消订单</span></li>
                                             </ul>
                                         </td>
                                     </tr>
