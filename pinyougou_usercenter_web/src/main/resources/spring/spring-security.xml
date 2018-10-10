@@ -28,7 +28,7 @@
   	<!-- CAS入口点 开始 -->
     <beans:bean id="casProcessingFilterEntryPoint" class="org.springframework.security.cas.web.CasAuthenticationEntryPoint">  
         <!-- 单点登录服务器登录URL -->  
-        <beans:property name="loginUrl" value="http://login.pinyougou.com/cas/login"/>
+        <beans:property name="loginUrl" value="http://login.pyg.com/cas/login"/>
         <beans:property name="serviceProperties" ref="serviceProperties"/>  
     </beans:bean>      
     <beans:bean id="serviceProperties" class="org.springframework.security.cas.ServiceProperties">  
@@ -61,7 +61,7 @@
             <beans:bean class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator">
                 <!-- 设置去CAS服务器的ticker来认证 -->
                 <!-- 只配置了指定CAS服务器的认证URL，默认是是当前登录服务器地址-->
-                <beans:constructor-arg index="0" value="http://login.pinyougou.com/cas"/>
+                <beans:constructor-arg index="0" value="http://login.pyg.com/cas"/>
             </beans:bean>
         </beans:property>
         <beans:property name="key" value="an_id_for_this_auth_provider_only"/>
@@ -76,7 +76,7 @@
     <beans:bean id="singleLogoutFilter" class="org.jasig.cas.client.session.SingleSignOutFilter"/>          
     <beans:bean id="requestSingleLogoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
         <!--设置单点登出的URL -->
-        <beans:constructor-arg value="http://login.pinyougou.com/cas/logout?service=http://usercenter.pyg.com"/>
+        <beans:constructor-arg value="http://login.pyg.com/cas/logout?service=http://usercenter.pyg.com"/>
         <beans:constructor-arg>  
             <beans:bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"/>  
         </beans:constructor-arg>
