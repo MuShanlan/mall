@@ -15,15 +15,17 @@
 
 	<!-- 把提出去的JS 引回来-->
 	<script type="text/javascript" src="/js/base.js"></script>
-	<script type="text/javascript" src="/js/service/cartService.js"></script>
-	<script type="text/javascript" src="/js/service/addressService.js"></script>
-	<script type="text/javascript" src="/js/service/orderService.js"></script>
+	<script type="text/javascript" src="/js/controller/payController.js"></script>
 	<script type="text/javascript" src="/js/controller/cartController.js"></script>
-
+	<script type="text/javascript" src="/js/controller/brandController.js"></script>
+	<script type="text/javascript" src="/js/service/payService.js"></script>
+	<script type="text/javascript" src="/js/service/cartService.js"></script>
+	<script type="text/javascript" src="/js/service/brandService.js"></script>
 </head>
-<body class="hold-transition skin-red sidebar-mini"
-	  ng-app="pinyougou" ng-controller="cartController" ng-init="findAddressByLoginUser();findCartList()">
 
+<body>
+<body class="hold-transition skin-red sidebar-mini"
+	  ng-app="pinyougou" ng-controller="brandController" ng-init="findAll()">
 	<!--head-->
 	<div class="top">
 		<div class="py-container">
@@ -77,7 +79,7 @@
 					<div class="addressInfo">
 						<ul class="addr-detail">
 							<li class="addr-item">
-							
+
 							  <div ng-repeat="address in addressList">
 								  <!--selected-->
 								<div class="con name {{isSelectAddress(address)?'selected':''}}"><a href="javascript:;" ng-click="selectAddress(address)">{{address.contact}}<span title="点击取消选择"/>&nbsp;</a></div>
@@ -89,8 +91,8 @@
 							  </div>
 
 							</li>
-							
-							
+
+
 						</ul>
 						<!--添加地址-->
                           <div  tabindex="-1" role="dialog" data-hasfoot="false" class="sui-modal hide fade edit">
@@ -108,7 +110,7 @@
 									      <input type="text" class="input-medium">
 									    </div>
 									  </div>
-									   
+
 									   <div class="control-group">
 									    <label class="control-label">详细地址：</label>
 									    <div class="controls">
@@ -136,10 +138,10 @@
 									    	建议填写常用地址：<a href="#" class="sui-btn btn-default">家里</a>　<a href="#" class="sui-btn btn-default">父母家</a>　<a href="#" class="sui-btn btn-default">公司</a>
 									    </div>
 									  </div>
-									  
+
 						      	</form>
-						      	
-						      	
+
+
 						      </div>
 						      <div class="modal-footer">
 						        <button type="button" data-ok="modal" class="sui-btn btn-primary btn-large">确定</button>
@@ -151,7 +153,7 @@
 						 <!--确认地址-->
 					</div>
 					<div class="hr"></div>
-					
+
 				</div>
 				<div class="hr"></div>
 				<!--支付和送货-->
@@ -172,9 +174,9 @@
 					<div class="step-cont">
 						<ul class="send-detail">
 							<li ng-repeat="cart in cartList">
-								
+
 								<div class="sendGoods" ng-repeat="orderItem in cart.orderItemList">
-									
+
 									<ul class="yui3-g">
 										<li class="yui3-u-1-6">
 											<span><img src="{{orderItem.picPath}}"/></span>

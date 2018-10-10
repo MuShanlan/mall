@@ -24,7 +24,7 @@ import java.util.Map;
  *
  */
 @Service
-@Transactional
+//@Transactional
 public class TypeTemplateServiceImpl implements TypeTemplateService {
 
 	@Autowired

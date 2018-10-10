@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@Transactional
+//@Transactional
 public class SpecificationServiceImpl implements SpecificationService {
 
     @Autowired

@@ -3,6 +3,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.pinyougou.common.PageResult;
 import com.pinyougou.common.Result;
 import com.pinyougou.pojo.TbAddress;
+import com.pinyougou.pojo.TbAddressExample;
 import com.pinyougou.user.service.AddressService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,28 +20,30 @@ import java.util.List;
 @RequestMapping("/address")
 public class AddressController {
 
-	@Reference
+	@Reference(timeout = 10000000)
 	private AddressService addressService;
-	
+
 	/**
 	 * 返回全部列表
 	 * @return
 	 */
 	@RequestMapping("/findAll")
-	public List<TbAddress> findAll(){			
-		return addressService.findAll();
+	public List<TbAddress> findAll(){
+		String name = SecurityContextHolder.getContext().getAuthentication().getName();
+
+		return addressService.findAll(name);
 	}
-	
-	
+
+
 	/**
 	 * 返回全部列表
 	 * @return
 	 */
 	@RequestMapping("/findPage")
-	public PageResult  findPage(int page,int rows){			
+	public PageResult  findPage(int page,int rows){
 		return addressService.findPage(page, rows);
 	}
-	
+
 	/**
 	 * 增加
 	 * @param address
@@ -49,6 +52,9 @@ public class AddressController {
 	@RequestMapping("/add")
 	public Result add(@RequestBody TbAddress address){
 		try {
+			String name = SecurityContextHolder.getContext().getAuthentication().getName();
+			address.setUserId(name);
+
 			addressService.add(address);
 			return new Result(true, "增加成功");
 		} catch (Exception e) {
@@ -56,7 +62,7 @@ public class AddressController {
 			return new Result(false, "增加失败");
 		}
 	}
-	
+
 	/**
 	 * 修改
 	 * @param address
@@ -71,8 +77,8 @@ public class AddressController {
 			e.printStackTrace();
 			return new Result(false, "修改失败");
 		}
-	}	
-	
+	}
+
 	/**
 	 * 获取实体
 	 * @param id
@@ -80,9 +86,9 @@ public class AddressController {
 	 */
 	@RequestMapping("/findOne")
 	public TbAddress findOne(Long id){
-		return addressService.findOne(id);		
+		return addressService.findOne(id);
 	}
-	
+
 	/**
 	 * 批量删除
 	 * @param ids
@@ -92,14 +98,14 @@ public class AddressController {
 	public Result delete(Long [] ids){
 		try {
 			addressService.delete(ids);
-			return new Result(true, "删除成功"); 
+			return new Result(true, "删除成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Result(false, "删除失败");
 		}
 	}
-	
-		/**
+
+	/**
 	 * 查询+分页
 	 * @param
 	 * @param page
@@ -108,7 +114,7 @@ public class AddressController {
 	 */
 	@RequestMapping("/search")
 	public PageResult search(@RequestBody TbAddress address, int page, int rows  ){
-		return addressService.findPage(address, page, rows);		
+		return addressService.findPage(address, page, rows);
 	}
 
 	/**
@@ -118,9 +124,9 @@ public class AddressController {
 	@RequestMapping("findAddressByLoginUser")
 	public List<TbAddress> findAddressByLoginUser(){
 		//1、获取当前登录者用户名
-        String loginUser = SecurityContextHolder.getContext().getAuthentication().getName();
-        //2、调用Service根据用户名查询列表
-        List<TbAddress> addressList = addressService.findAddressByLoginUser(loginUser);
+		String loginUser = SecurityContextHolder.getContext().getAuthentication().getName();
+		//2、调用Service根据用户名查询列表
+		List<TbAddress> addressList = addressService.findAddressByLoginUser(loginUser);
 		return addressList;
 	}
 

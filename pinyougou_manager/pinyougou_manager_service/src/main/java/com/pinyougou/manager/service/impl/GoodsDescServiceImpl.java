@@ -19,7 +19,7 @@ import com.pinyougou.common.PageResult;
  *
  */
 @Service
-@Transactional
+//@Transactional
 public class GoodsDescServiceImpl implements GoodsDescService {
 
 	@Autowired

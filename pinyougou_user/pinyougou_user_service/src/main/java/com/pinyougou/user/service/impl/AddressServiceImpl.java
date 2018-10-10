@@ -40,8 +40,13 @@ public class AddressServiceImpl implements AddressService {
 	 * 查询全部
 	 */
 	@Override
-	public List<TbAddress> findAll() {
-		return addressMapper.selectByExample(null);
+	public List<TbAddress> findAll(String name)
+	{
+		TbAddressExample tbAddressExample = new TbAddressExample();
+		Criteria criteria = tbAddressExample.createCriteria();
+		criteria.andUserIdEqualTo(name);
+
+		return addressMapper.selectByExample(tbAddressExample);
 	}
 
 	/**

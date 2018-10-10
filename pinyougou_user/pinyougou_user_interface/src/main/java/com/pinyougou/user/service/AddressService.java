@@ -14,7 +14,7 @@ public interface AddressService {
 	 * 返回全部列表
 	 * @return
 	 */
-	public List<TbAddress> findAll();
+	public List<TbAddress> findAll(String name);
 	
 	
 	/**

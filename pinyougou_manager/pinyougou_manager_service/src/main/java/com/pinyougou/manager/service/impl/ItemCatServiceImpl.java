@@ -20,7 +20,7 @@ import java.util.List;
  *
  */
 @Service
-@Transactional
+//@Transactional
 public class ItemCatServiceImpl implements ItemCatService {
 
 	@Autowired

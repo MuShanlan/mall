@@ -26,7 +26,7 @@ import java.util.Map;
  *
  */
 @Service
-@Transactional
+//@Transactional
 public class GoodsServiceImpl implements GoodsService {
 
 	@Autowired
