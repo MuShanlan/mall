@@ -103,5 +103,14 @@ public class OrderItemServiceImpl implements OrderItemService {
 		Page<TbOrderItem> page= (Page<TbOrderItem>)orderItemMapper.selectByExample(example);		
 		return new PageResult(page.getTotal(), page.getResult());
 	}
-	
+
+    @Override
+    public List<TbOrderItem> findGood(Long orderId) {
+		TbOrderItemExample example = new TbOrderItemExample();
+        Criteria criteria = example.createCriteria();
+        criteria.andOrderIdEqualTo(orderId);
+        List<TbOrderItem> orderItems = orderItemMapper.selectByExample(example);
+        return orderItems;
+    }
+
 }

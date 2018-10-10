@@ -55,6 +55,19 @@ public class TbOrder implements Serializable{
 
     private String sellerId;
 
+    private String strOrderId;
+
+    public String getStrOrderId() {
+        if (strOrderId!=null&&!("").equals(strOrderId)){
+            return strOrderId;
+        }
+        return orderId+"";
+    }
+
+    public void setStrOrderId(String strOrderId) {
+        this.strOrderId = strOrderId;
+    }
+
     public Long getOrderId() {
         return orderId;
     }
