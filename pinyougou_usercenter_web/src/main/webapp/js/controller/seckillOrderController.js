@@ -44,31 +44,40 @@ app.controller("seckillOrderController", function ($scope, $location, $interval,
 
     // 查询订单详情
     $scope.seckillGoodsOrder = {};
-    // 判断状态
-    $scope.seckillGoodsOrderStatus = {};
+    $scope.seckillGoodsOrderStatus ={};
+    $scope.progressBar = 0;
     $scope.findSeckillOrderDetail = function () {
         seckillOrderService.findSeckillOrderDetail($location.search()["orderId"]).success(function (response) {
             $scope.seckillGoodsOrder = response;
             var status = $scope.seckillGoodsOrder.seckillOrder.status;
             if(status == "0"){
                 $scope.seckillGoodsOrderStatus = "未付款";
+                $scope.progressBar = 1;
             }else if(status == "1"){
                 $scope.seckillGoodsOrderStatus = "已付款";
+                $scope.progressBar = 2;
             }else if(status == "2"){
                 $scope.seckillGoodsOrderStatus = "未发货";
+                $scope.progressBar = 2;
             }else if(status == "3"){
                 $scope.seckillGoodsOrderStatus = "已发货";
+                $scope.progressBar = 4;
             }else if(status == "4"){
                 $scope.seckillGoodsOrderStatus = "交易成功";
+                $scope.progressBar = 5;
             }else if(status == "5"){
                 $scope.seckillGoodsOrderStatus = "交易关闭";
+                $scope.progressBar = 0;
             }else if(status == "6"){
                 $scope.seckillGoodsOrderStatus = "待评价";
+                $scope.progressBar = 6;
             }
         });
     };
 
 
+    // 判断状态
+    //$scope.seckillGoodsOrderStatus = ["未付款","已付款","未发货","已发货","交易成功","交易关闭","待评价"];
     // var status = $scope.seckillGoodsOrder
 
 

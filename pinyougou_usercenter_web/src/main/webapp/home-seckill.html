@@ -227,7 +227,7 @@
                                 <!--order1-->
                                 <div class="choose-title">
                                     <label data-toggle="checkbox" class="checkbox-pretty ">
-                                        <input type="checkbox" checked="checked"><span>{{entity.seckillOrder.createTime}}　订单编号：{{entity.seckillOrder.id}}  店铺：{{entity.seckillOrder.sellerId}} <a>和我联系</a></span>
+                                        <input type="checkbox" checked="checked"><span>{{entity.seckillOrder.createTime}}　订单编号：{{entity.seckillOrder.strId}}  店铺：{{entity.seckillOrder.sellerId}} <a>和我联系</a></span>
                                     </label>
                                     <a class="sui-btn btn-info share-btn">分享</a>
                                 </div>
@@ -257,13 +257,13 @@
                                         <td width="10%" class="center">
                                             <ul class="unstyled">
                                                 <li>等待卖家付款</li>
-                                                <li><a ng-click="orderDetail(entity.seckillOrder.id)" class="btn">订单详情 </a></li>
+                                                <li><a ng-click="orderDetail(entity.seckillOrder.strId)" class="btn">订单详情 </a></li>
                                             </ul>
                                         </td>
                                         <td width="10%" class="center">
                                             <ul class="unstyled">
-                                                <li><a ng-click="payNow(entity.seckillOrder.id)" class="sui-btn btn-info">立即付款</a></li>
-                                                <li ><span ng-click="delete(entity.seckillOrder.id)" class="sui-btn" >取消订单</span></li>
+                                                <li><a ng-click="payNow(entity.seckillOrder.strId)" class="sui-btn btn-info">立即付款</a></li>
+                                                <li ><span ng-click="delete(entity.seckillOrder.strId)" class="sui-btn" >取消订单</span></li>
                                             </ul>
                                         </td>
                                     </tr>

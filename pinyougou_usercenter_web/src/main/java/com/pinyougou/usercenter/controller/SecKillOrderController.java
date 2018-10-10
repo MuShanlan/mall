@@ -25,7 +25,8 @@ public class SecKillOrderController {
     public List<SeckillGoodsOrderVo> searchSecKillOrderList(){
         String loginUser = SecurityContextHolder.getContext().getAuthentication().getName();
 //        String loginUser = "JTNine";
-        return secKillOrderService.searchSecKillOrderList(loginUser);
+        List<SeckillGoodsOrderVo> seckillGoodsOrderVos = secKillOrderService.searchSecKillOrderList(loginUser);
+        return seckillGoodsOrderVos;
     }
 
     /**

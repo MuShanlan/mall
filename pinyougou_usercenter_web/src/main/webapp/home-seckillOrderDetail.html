@@ -198,7 +198,7 @@ $(function(){
                             <h4>订单详情</h4>
                             <div class="order-bar">
                                 <div class="sui-steps-round steps-round-auto steps-4">
-                                    <div class="finished">
+                                    <div class="{{progressBar != 0?'finished':'todo'}}">
                                         <div class="wrap">
                                         <div class="round">1</div>
                                         <div class="bar"></div>
@@ -209,7 +209,7 @@ $(function(){
                                             <span>13:03:53</span>
                                         </label>
                                     </div>
-                                    <div class="current">
+                                    <div class="{{progressBar >= 2?'current':'todo'}}">
                                         <div class="wrap">
                                         <div class="round">2</div>
                                         <div class="bar"></div>
@@ -220,18 +220,18 @@ $(function(){
                                             <span>13:03:53</span>
                                         </label>
                                     </div>
-                                    <div class="todo">
+                                    <div class="{{progressBar >= 2?'current':'todo'}}">
                                         <div class="wrap">
                                         <div class="round">3</div>
                                         <div class="bar"></div>
                                         </div>
                                         <label>
-                                            <span>发货</span>
+                                            <span>发货中</span>
                                             <span>2016-06-27</span>
                                             <span>13:03:53</span>
                                         </label>
                                     </div>
-                                    <div class="todo">
+                                    <div class="{{progressBar >= 4?'current':'todo'}}">
                                         <div class="wrap">
                                         <div class="round">4</div>
                                         <div class="bar"></div>
@@ -257,13 +257,13 @@ $(function(){
                             </div>
                             <div class="order-state">
                                 <p>当前订单状态：<span class="red">{{seckillGoodsOrderStatus}}</span></p>
-                                <p>还剩06天00小时 自动确认收货</p>
+                                <!--<p>还剩06天00小时 自动确认收货</p>-->
                             </div>
                         </div>
                         <div class="order-info">
                             <h5>订单信息</h5>
                             <p>收货地址：{{seckillGoodsOrder.seckillOrder.receiverAddress}}  </p>
-                            <p>订单单号：{{seckillGoodsOrder.seckillOrder.id}}</p>
+                            <p>订单单号：{{seckillGoodsOrder.seckillOrder.strId}}</p>
                             <p>下单时间：{{seckillGoodsOrder.seckillOrder.createTime}}</p>
                             <p>支付时间：{{seckillGoodsOrder.seckillOrder.payTime}}</p>
                             <p>支付方式：微信</p>
@@ -281,7 +281,7 @@ $(function(){
                              
                                 <tbody>                               
                                     <tr>
-                                        <td colspan="5">订单编号：{{seckillGoodsOrder.seckillOrder.id}}</td>
+                                        <td colspan="5">订单编号：{{seckillGoodsOrder.seckillOrder.strId}}</td>
                                     </tr>
                                     <tr>
                                         <td>
