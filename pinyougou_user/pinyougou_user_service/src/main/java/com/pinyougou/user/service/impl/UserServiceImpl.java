@@ -14,7 +14,9 @@ import com.pinyougou.user.service.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
 import java.util.Date;
@@ -45,7 +47,8 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    @Override
+
+	@Override
     public void sendSms(String phone) {
 
         //1、生成随机数（验证码）
@@ -192,5 +195,7 @@ public class UserServiceImpl implements UserService {
 		Page<TbUser> page= (Page<TbUser>)userMapper.selectByExample(example);		
 		return new PageResult(page.getTotal(), page.getResult());
 	}
+
+
 	
 }

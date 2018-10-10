@@ -29,6 +29,19 @@ public class TbSeckillOrder implements Serializable {
 
     private String transactionId;
 
+    private String strId;
+
+    public String getStrId() {
+        if (strId!=null&&!("").equals(strId)){
+            return strId;
+        }
+        return id+"";
+    }
+
+    public void setStrId(String strId) {
+        this.strId = strId;
+    }
+
     public Long getId() {
         return id;
     }

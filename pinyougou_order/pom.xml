@@ -40,7 +40,7 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <configuration>
                     <path>/</path>
-                    <port>8093</port>
+                    <port>8094</port>
                 </configuration>
             </plugin>
         </plugins>
