@@ -57,5 +57,6 @@ public interface OrderItemService {
 	 * @return
 	 */
 	public PageResult findPage(TbOrderItem orderItem, int pageNum, int pageSize);
-	
+
+	List<TbOrderItem> findGood(Long orderId);
 }

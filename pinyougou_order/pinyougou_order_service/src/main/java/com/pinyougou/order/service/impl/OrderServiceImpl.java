@@ -29,6 +29,7 @@ import java.util.List;
  *
  */
 @Service
+@Transactional
 public class OrderServiceImpl implements OrderService {
 
 	@Autowired
@@ -154,7 +155,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void update(TbOrder order){
 		orderMapper.updateByPrimaryKey(order);
-	}	
+	}
 	
 	/**
 	 * 根据ID获取实体
@@ -192,7 +193,7 @@ public class OrderServiceImpl implements OrderService {
 				criteria.andPostFeeLike("%"+order.getPostFee()+"%");
 			}
 			if(order.getStatus()!=null && order.getStatus().length()>0){
-				criteria.andStatusLike("%"+order.getStatus()+"%");
+				criteria.andStatusEqualTo(order.getStatus());
 			}
 			if(order.getShippingName()!=null && order.getShippingName().length()>0){
 				criteria.andShippingNameLike("%"+order.getShippingName()+"%");
@@ -231,7 +232,7 @@ public class OrderServiceImpl implements OrderService {
 				criteria.andSourceTypeLike("%"+order.getSourceType()+"%");
 			}
 			if(order.getSellerId()!=null && order.getSellerId().length()>0){
-				criteria.andSellerIdLike("%"+order.getSellerId()+"%");
+				criteria.andSellerIdEqualTo(order.getSellerId());
 			}
 	
 		}
