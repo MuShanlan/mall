@@ -1,5 +1,5 @@
  //控制层 
-app.controller('userController' ,function($scope,$controller   ,userService){	
+app.controller('userController' ,function($scope,$controller ,userService){	
 	
 	$controller('baseController',{$scope:$scope});//继承
 	
@@ -24,8 +24,7 @@ app.controller('userController' ,function($scope,$controller   ,userService){
 	
 	//查询实体 
 	$scope.findOne=function(id){				
-		userService.findOne(id).success(
-			function(response){
+		userService.findOne(id).success(function(response){
 				$scope.entity= response;					
 			}
 		);				
@@ -99,6 +98,66 @@ app.controller('userController' ,function($scope,$controller   ,userService){
 		userService.showName().success(function (response) {
 			$scope.userMap = response;
         })
+	}
+
+    $scope.getUserName=function(){
+        userService.getUserName().success(function (response) {
+            $scope.userMap = response;
+        })
+    }
+
+
+
+
+
+    /**
+	 * 保存个人信息
+     */
+    $scope.saveInformation=function(){
+
+        var serviceObject;//服务层对象
+        if($scope.entity.id!=null){//如果有ID
+            serviceObject=userService.update( $scope.entity ); //修改
+        }else{
+            serviceObject=userService.add( $scope.entity );//增加
+        }
+        serviceObject.success(
+            function(response){
+                if(response.success){
+                    $scope.reloadList();//重新加载
+                }else{
+                    alert(response.message);
+                }
+            }
+        );
+    }
+
+    /**
+     * 新增地址
+     */
+    $scope.addRess=function(){
+        userService.add( $scope.entity ).success(function(response){
+                if(response.success){
+                    $scope.reloadList();//重新加载
+                }else{
+                    alert(response.message);
+                }
+            }
+        );
+    }
+
+    /**
+     * 密码设置
+     */
+    $scope.savSubmit=function(){
+        //修改
+        userService.update($scope.entity).success(function (response) {
+            if(response.success){
+                $scope.reloadList();//重新加载
+            }else{
+                alert(response.message);
+            }
+        });
 	}
 
 });	

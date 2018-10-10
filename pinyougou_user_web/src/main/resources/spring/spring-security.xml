@@ -15,6 +15,7 @@
     <http pattern="/user/add" security="none"/>
     <http pattern="/user/sendSms" security="none"/>
 
+
 	<!--   entry-point-ref  入口点引用 -->
 	<http use-expressions="false" entry-point-ref="casProcessingFilterEntryPoint">  
         <intercept-url pattern="/**" access="ROLE_USER"/>   

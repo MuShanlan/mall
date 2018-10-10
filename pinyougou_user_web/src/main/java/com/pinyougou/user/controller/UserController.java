@@ -136,12 +136,17 @@ public class UserController {
 	}
 
 	//获取当前登录者用户信息的
-	@RequestMapping("showName")
+	@RequestMapping("/showName")
 	public Map showName(){
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         Map map = new HashMap();
         map.put("userName",name);
         return map;
     }
+
+	@RequestMapping("/getUserName")
+	public String getUserName(){
+		return SecurityContextHolder.getContext().getAuthentication().getName();
+	}
 
 }

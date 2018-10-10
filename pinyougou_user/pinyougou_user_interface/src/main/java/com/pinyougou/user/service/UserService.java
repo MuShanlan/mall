@@ -70,4 +70,7 @@ public interface UserService {
 	 * @return
 	 */
 	boolean checkSmsCode(String phone, String smsCode);
+
+
 }
+
