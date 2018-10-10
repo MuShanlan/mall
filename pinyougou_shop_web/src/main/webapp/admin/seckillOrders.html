@@ -70,16 +70,16 @@
 			                      <tbody>
 			                          <tr ng-repeat="entity in list">
 			                              <td><input  type="checkbox" ng-click="updateSelection($event,entity.id)"></td>
-				                          <td>{{entity.id}}</td>
+				                          <td>{{entity.strId}}</td>
 				                          <td>{{entity.seckillId}}</td>
 				                          <td>{{entity.userId}}</td>
 				                          <td>{{entity.money}}</td>
 				                          <td>{{entity.payTime}}</td>
-				                          <td>{{entity.status=='1'?'正常':'失败'}}</td>
+				                          <td>{{entity.status==1?'正常':'失败'}}</td>
 				                          <td>{{entity.transactionId}}</td>
 										  <td class="text-center">
 											  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal"
-													  ng-click="findOne(entity.orderId)">收货信息
+													  ng-click="findOne(entity.strId)">收货信息
 											  </button>
 										  </td>
 			                          </tr>
@@ -114,8 +114,8 @@
 						  <td><input class="form-control" ng-model="entity.receiverMobile" placeholder="收货人手机"></td>
 					  </tr>
 					  <tr>
-						  <td>收货人邮编</td>
-						  <td><input class="form-control" ng-model="entity.receiverZipCode" placeholder="收货人邮编"></td>
+						  <td>收货人地址</td>
+						  <td><input class="form-control" ng-model="entity.receiverAddress" placeholder="收货人地址"></td>
 					  </tr>
 				  </table>
 			  </div>

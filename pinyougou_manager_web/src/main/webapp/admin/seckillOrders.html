@@ -25,13 +25,13 @@
 	<!-- 把提出去的JS 引回来-->
 	<script type="text/javascript" src="../js/base_pagination.js"></script>
 	<script src="../js/controller/baseController.js"></script>
-	<script src="../js/service/orderService.js"></script>
-	<script src="../js/controller/orderController.js"></script>
+	<script src="../js/service/seckillOrderService.js"></script>
+	<script src="../js/controller/seckillOrderController.js"></script>
 
 
 </head>
 <body class="hold-transition skin-red sidebar-mini"
-	  ng-app="pinyougou" ng-controller="orderController">
+	  ng-app="pinyougou" ng-controller="seckillOrderController">
   <!-- .box-body -->
                 
                     <div class="box-header with-border">
@@ -44,18 +44,8 @@
                         <div class="table-box">
 							<div class="box-tools pull-right">
 								<div class="has-feedback">
-									状态：<select ng-model="searchEntity.status">
-									<option value="">全部</option>
-									<option value="1">未付款</option>
-									<option value="2">已付款</option>
-									<option value="3">未发货</option>
-									<option value="4">已发货</option>
-									<option value="5">交易成功</option>
-									<option value="6">交易关闭</option>
-									<option value="7">待评价</option>
-								</select>
 									订单：<input >
-									<button class="btn btn-default" ng-click="search('1','10')">查询</button>
+									<button class="btn btn-default" >查询</button>
 								</div>
 							</div>
                             <!--工具栏/-->
@@ -67,41 +57,29 @@
 			                              <th class="" style="padding-right:0px">
 			                                  <input id="selall" type="checkbox" class="icheckbox_square-blue">
 			                              </th>
-										  <th class="sorting_asc">订单ID</th>
-									      <th class="sorting">用户ID</th>
-									      <th class="sorting">收货人手机</th>
-									      <th class="sorting">支付类型</th>
-									      <th class="sorting">买家昵称</th>
-										  <th class="sorting">下单时间</th>
-										  <th class="sorting">订单更新时间</th>
-										  <th class="sorting">物流名称</th>
-										  <th class="sorting">物流单号</th>
-										  <th class="sorting">交易完成时间</th>
-										  <th class="sorting">交易关闭时间</th>
-									      <th class="sorting">状态</th>
-									      <th class="sorting">买家留言</th>
+										  <th class="sorting_asc">秒杀订单ID</th>
+									      <th class="sorting">秒杀商品ID</th>
+									      <th class="sorting">用户</th>
+									      <th class="sorting">支付金额</th>
+									      <th class="sorting">支付时间</th>
+										  <th class="sorting">状态</th>
+										  <th class="sorting">交易流水</th>
 					                      <th class="text-center">操作</th>
 			                          </tr>
 			                      </thead>
 			                      <tbody>
 			                          <tr ng-repeat="entity in list">
-			                              <td><input  type="checkbox"></td>
-				                          <td>{{entity.strOrderId}}</td>
+			                              <td><input  type="checkbox" ng-click="updateSelection($event,entity.id)"></td>
+				                          <td>{{entity.strId}}</td>
+				                          <td>{{entity.seckillId}}</td>
 				                          <td>{{entity.userId}}</td>
-				                          <td>{{entity.receiverMobile}}</td>
-				                          <td>{{entity.paymentType==1?"在线支付":"货到付款"}}</td>
-				                          <td>{{entity.buyerNick}}</td>
-				                          <td>{{entity.createTime}}</td>
-				                          <td>{{entity.updateTime}}</td>
-				                          <td>{{entity.shippingName}}</td>
-				                          <td>{{entity.shippingCode}}</td>
-				                          <td>{{entity.endTime}}</td>
-				                          <td>{{entity.closeTime}}</td>
-				                          <td>{{statusList[entity.status]}}</td>
-				                          <td>{{entity.buyerMessage}}</td>
+				                          <td>{{entity.money}}</td>
+				                          <td>{{entity.payTime}}</td>
+				                          <td>{{entity.status==1?'正常':'失败'}}</td>
+				                          <td>{{entity.transactionId}}</td>
 										  <td class="text-center">
 											  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal"
-													  ng-click="findOne(entity.strOrderId)">修改收货信息
+													  ng-click="findOne(entity.strId)">收货信息
 											  </button>
 										  </td>
 			                          </tr>
@@ -129,24 +107,19 @@
 				  <table class="table table-bordered table-striped" width="800px">
 					  <tr>
 						  <td>收货人</td>
-						  <td><input class="form-control" ng-model="entity.receiver" placeholder="收货人"></td>
+						  <td>{{entity.receiver}}</td>
 					  </tr>
 					  <tr>
 						  <td>收货人手机</td>
-						  <td><input class="form-control" ng-model="entity.receiverMobile" placeholder="收货人手机"></td>
+						  <td>{{entity.receiverMobile}}</td>
 					  </tr>
 					  <tr>
-						  <td>收货人邮编</td>
-						  <td><input class="form-control" ng-model="entity.receiverZipCode" placeholder="收货人邮编"></td>
-					  </tr>
-					  <tr>
-						  <td>收货人地区名称(省，市，县)街道</td>
-						  <td><input class="form-control" ng-model="entity.receiverAreaName" placeholder="收货人地区名称(省，市，县)街道"></td>
+						  <td>收货人地址</td>
+						  <td>{{entity.receiverAddress}}</td>
 					  </tr>
 				  </table>
 			  </div>
 			  <div class="modal-footer">
-				  <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="save()">保存</button>
 				  <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
 			  </div>
 		  </div>

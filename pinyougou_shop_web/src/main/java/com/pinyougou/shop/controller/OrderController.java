@@ -66,6 +66,7 @@ public class OrderController {
 	@RequestMapping("/update")
 	public Result update(@RequestBody TbOrder order){
 		try {
+			order.setOrderId(new Long(order.getStrOrderId()));
 			orderService.update(order);
 			return new Result(true, "修改成功");
 		} catch (Exception e) {
@@ -80,8 +81,9 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping("/findOne")
-	public TbOrder findOne(Long id){
-        return orderService.findOne(id);
+	public TbOrder findOne(String id){
+		Long orderId = new Long(id);
+		return orderService.findOne(orderId);
 	}
 	
 	/**
@@ -110,7 +112,8 @@ public class OrderController {
 	public PageResult search(@RequestBody TbOrder order, int page, int rows  ){
         String shopLoginName = SecurityContextHolder.getContext().getAuthentication().getName();
         order.setSellerId(shopLoginName);
-        return orderService.findPage(order, page, rows);
+        PageResult page1 = orderService.findPage(order, page, rows);
+        return page1;
 	}
 	
 }
