@@ -81,9 +81,7 @@ public class OrderController {
 	 */
 	@RequestMapping("/findOne")
 	public TbOrder findOne(Long id){
-        TbOrder one = orderService.findOne(id);
-        System.out.println(one);
-        return one;
+        return orderService.findOne(id);
 	}
 	
 	/**
