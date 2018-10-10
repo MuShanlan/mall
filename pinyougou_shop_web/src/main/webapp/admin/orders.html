@@ -24,8 +24,8 @@
 
 	<!-- 把提出去的JS 引回来-->
 	<script type="text/javascript" src="../js/base_pagination.js"></script>
-	<script src="../js/service/orderService.js"></script>
 	<script src="../js/controller/baseController.js"></script>
+	<script src="../js/service/orderService.js"></script>
 	<script src="../js/controller/orderController.js"></script>
 
 
@@ -85,7 +85,7 @@
 			                      </thead>
 			                      <tbody>
 			                          <tr ng-repeat="entity in list">
-			                              <td><input  type="checkbox" ng-click="updateSelection($event,entity.id)"></td>
+			                              <td><input  type="checkbox"></td>
 				                          <td>{{entity.orderId}}</td>
 				                          <td>{{entity.userId}}</td>
 				                          <td>{{entity.receiverMobile}}</td>
