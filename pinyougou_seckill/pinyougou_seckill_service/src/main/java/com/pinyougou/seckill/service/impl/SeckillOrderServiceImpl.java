@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class SeckillOrderServiceImpl implements SeckillOrderService {
@@ -68,13 +67,13 @@ public class SeckillOrderServiceImpl implements SeckillOrderService {
             //秒杀价
             seckillOrder.setMoney(seckillGoods.getCostPrice());
             IdWorker idWorker = new IdWorker();
-            seckillOrder.setId(idWorker.nextId());
+            seckillOrder.setId(idWorker.nextId()+"");
 
             //将订单存入redis
             redisTemplate.boundHashOps(SECKILL_ORDERS).put(seckillOrder.getId().toString(), seckillOrder);
 
             //5、返回秒杀订单id
-            return seckillOrder.getId();
+            return Long.parseLong(seckillOrder.getId());
         }
 
 

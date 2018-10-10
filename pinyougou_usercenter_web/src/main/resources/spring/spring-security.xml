@@ -33,7 +33,7 @@
     </beans:bean>      
     <beans:bean id="serviceProperties" class="org.springframework.security.cas.ServiceProperties">  
         <!--service 配置自身工程的根地址+/login/cas   -->  
-        <beans:property name="service" value="http://usercenter.pinyougou.com/login/cas"/>
+        <beans:property name="service" value="http://usercenter.pyg.com/login/cas"/>
     </beans:bean>  
     <!-- CAS入口点 结束 -->
 
@@ -76,7 +76,7 @@
     <beans:bean id="singleLogoutFilter" class="org.jasig.cas.client.session.SingleSignOutFilter"/>          
     <beans:bean id="requestSingleLogoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
         <!--设置单点登出的URL -->
-        <beans:constructor-arg value="http://login.pinyougou.com/cas/logout?service=http://seckill.pinyougou.com"/>
+        <beans:constructor-arg value="http://login.pinyougou.com/cas/logout?service=http://usercenter.pyg.com"/>
         <beans:constructor-arg>  
             <beans:bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"/>  
         </beans:constructor-arg>
