@@ -32,7 +32,7 @@ public class UserController {
 	 */
 	@RequestMapping("/findAll")
 	public List<TbUser> findAll(){			
-		return userService.findAll(name);
+		return userService.findAll();
 	}
 	
 	
@@ -92,7 +92,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("/findOne")
-	public TbUser findOne(Long id){
+	public TbUser findOne(String id){
 		return userService.findOne(id);		
 	}
 	

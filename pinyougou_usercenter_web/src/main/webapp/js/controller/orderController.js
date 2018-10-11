@@ -64,12 +64,12 @@ app.controller('orderController' ,function($scope,$controller   ,orderService){
 		);				
 	}
 
-	$scope.loginName = "";
+	/*$scope.loginName = "";
 	$scope.getLoginName = function () {
 		orderService.getLoginName().success(function (resopnse) {
             $scope.loginName = resopnse;
         })
-    }
+    }*/
 
     $scope.searchMap = {
         "status" : "",
