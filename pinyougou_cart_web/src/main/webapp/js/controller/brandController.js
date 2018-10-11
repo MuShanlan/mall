@@ -1,4 +1,4 @@
-app.controller("brandController",function($scope,brandService){
+app.controller("brandController",function($scope,brandService,addressService){
 
     $scope.findAll=function () {
         brandService.findAll().success(function (response) {
@@ -33,6 +33,19 @@ app.controller("brandController",function($scope,brandService){
             return true;
         }
         return false;
+    }
+
+    // 添加地址
+    $scope.addAddress = {};
+    $scope.saveAddress = function(){
+        addressService.saveAddress($scope.addAddress).success(function (response) {
+            if(response.success){
+                // 刷新页面
+                $scope.findAll();
+            }else {
+                alert(response.message);
+            }
+        });
     }
 
 } );

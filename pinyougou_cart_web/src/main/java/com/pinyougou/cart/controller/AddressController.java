@@ -3,7 +3,6 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.pinyougou.common.PageResult;
 import com.pinyougou.common.Result;
 import com.pinyougou.pojo.TbAddress;
-import com.pinyougou.pojo.TbAddressExample;
 import com.pinyougou.user.service.AddressService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,7 +48,7 @@ public class AddressController {
 	 * @param address
 	 * @return
 	 */
-	@RequestMapping("/add")
+	@RequestMapping("/saveAddress")
 	public Result add(@RequestBody TbAddress address){
 		try {
 			String name = SecurityContextHolder.getContext().getAuthentication().getName();

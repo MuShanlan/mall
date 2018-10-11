@@ -9,7 +9,6 @@ import com.pinyougou.pojo.TbAddressExample;
 import com.pinyougou.pojo.TbAddressExample.Criteria;
 import com.pinyougou.user.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -35,8 +34,29 @@ public class AddressServiceImpl implements AddressService {
 
         return addressList;
 	}
-
 	/**
+	 * 根据当前登录用户查询出该用户所拥有的地址
+	 * @param name
+	 * @return  List<TbAddress> 地址集合
+	 */
+    @Override
+    public List<TbAddress> findUserAddressAll(String name) {
+    	TbAddressExample example = new TbAddressExample();
+    	example.createCriteria().andUserIdEqualTo(name);
+        return addressMapper.selectByExample(example);
+    }
+
+    /**
+     * 删除地址
+     * @param id
+     * @return
+     */
+    @Override
+    public void deleteAddress(Long id) {
+        addressMapper.deleteByPrimaryKey(id);
+    }
+
+    /**
 	 * 查询全部
 	 */
 	@Override

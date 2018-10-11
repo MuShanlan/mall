@@ -15,12 +15,15 @@
 
 	<!-- 把提出去的JS 引回来-->
 	<script type="text/javascript" src="/js/base.js"></script>
-	<script type="text/javascript" src="/js/controller/payController.js"></script>
-	<script type="text/javascript" src="/js/controller/cartController.js"></script>
-	<script type="text/javascript" src="/js/controller/brandController.js"></script>
 	<script type="text/javascript" src="/js/service/payService.js"></script>
 	<script type="text/javascript" src="/js/service/cartService.js"></script>
 	<script type="text/javascript" src="/js/service/brandService.js"></script>
+	<script type="text/javascript" src="/js/service/orderService.js"></script>
+	<script type="text/javascript" src="/js/service/addressService.js"></script>
+
+	<!--<script type="text/javascript" src="/js/controller/payController.js"></script>-->
+	<!--<script type="text/javascript" src="/js/controller/cartController.js"></script>-->
+	<script type="text/javascript" src="/js/controller/brandController.js"></script>
 </head>
 
 <body>
@@ -80,7 +83,7 @@
 						<ul class="addr-detail">
 							<li class="addr-item">
 
-							  <div ng-repeat="address in addressList">
+							  <div ng-repeat="address in list">
 								  <!--selected-->
 								<div class="con name {{isSelectAddress(address)?'selected':''}}"><a href="javascript:;" ng-click="selectAddress(address)">{{address.contact}}<span title="点击取消选择"/>&nbsp;</a></div>
 								<div class="con address">{{address.contact}} {{address.address}} <span>{{address.mobile}}</span>
@@ -107,35 +110,35 @@
 						      		 <div class="control-group">
 									    <label class="control-label">收货人：</label>
 									    <div class="controls">
-									      <input type="text" class="input-medium">
+									      <input type="text" ng-model="addAddress.contact" class="input-medium">
 									    </div>
 									  </div>
 
 									   <div class="control-group">
 									    <label class="control-label">详细地址：</label>
 									    <div class="controls">
-									      <input type="text" class="input-large">
+									      <input type="text" ng-model="addAddress.address" class="input-large">
 									    </div>
 									  </div>
 									   <div class="control-group">
 									    <label class="control-label">联系电话：</label>
 									    <div class="controls">
-									      <input type="text" class="input-medium">
+									      <input type="text" ng-model="addAddress.mobile" class="input-medium">
 									    </div>
 									  </div>
 									   <div class="control-group">
-									    <label class="control-label">邮箱：</label>
+									    <label class="control-label">备注：</label>
 									    <div class="controls">
-									      <input type="text" class="input-medium">
+									      <input type="text" ng-model="addAddress.notes" class="input-medium">
 									    </div>
 									  </div>
 									   <div class="control-group">
 									    <label class="control-label">地址别名：</label>
 									    <div class="controls">
-									      <input type="text" class="input-medium">
+									      <input type="text" ng-model="addAddress.alias" class="input-medium">
 									    </div>
 									    <div class="othername">
-									    	建议填写常用地址：<a href="#" class="sui-btn btn-default">家里</a>　<a href="#" class="sui-btn btn-default">父母家</a>　<a href="#" class="sui-btn btn-default">公司</a>
+									    	建议填写常用地址：<a href="#" ng-model="addAddress.alias" class="sui-btn btn-default">家里</a>　<a href="#" ng-model="addAddress.alias"  class="sui-btn btn-default">父母家</a>　<a href="#" ng-model="addAddress.alias"  class="sui-btn btn-default">公司</a>
 									    </div>
 									  </div>
 
@@ -144,7 +147,7 @@
 
 						      </div>
 						      <div class="modal-footer">
-						        <button type="button" data-ok="modal" class="sui-btn btn-primary btn-large">确定</button>
+						        <button type="button" data-ok="modal" class="sui-btn btn-primary btn-large" ng-click="saveAddress()">确定</button>
 						        <button type="button" data-dismiss="modal" class="sui-btn btn-default btn-large">取消</button>
 						      </div>
 						    </div>

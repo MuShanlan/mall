@@ -46,15 +46,6 @@ public class SecKillOrderController {
     }
 
     /**
-     * 查询当前登录用户
-     * @return String 用户名
-     */
-    @RequestMapping("/checkLoginUser")
-    public String checkLoginUser(){
-        return SecurityContextHolder.getContext().getAuthentication().getName();
-    }
-
-    /**
      * 根据订单号查询出订单信息
      * @param orderId 订单号
      * @return SeckillGoodsOrderVo 封装了订单与商品信息

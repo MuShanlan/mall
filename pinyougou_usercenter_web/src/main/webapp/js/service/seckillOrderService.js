@@ -29,9 +29,6 @@ app.service("seckillOrderService",function ($http) {
         return $http.post("../seckillOrder/searchSecKillOrderList?page=" + page + "&rows=" + rows, searchEntity);
     };
 
-    this.checkLoginUser = function(){
-        return $http.get("../seckillOrder/checkLoginUser");
-    }
     this.findSeckillOrderDetail = function (orderId) {
         return $http.get("../seckillOrder/findSeckillOrderDetail?orderId="+orderId);
     }

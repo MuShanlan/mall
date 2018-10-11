@@ -13,6 +13,7 @@ public interface UserService {
 	/**
 	 * 返回全部列表
 	 * @return
+	 * @param name
 	 */
 	public List<TbUser> findAll();
 	
@@ -38,10 +39,10 @@ public interface UserService {
 
 	/**
 	 * 根据ID获取实体
-	 * @param id
+	 * @param userName
 	 * @return
 	 */
-	public TbUser findOne(Long id);
+	public TbUser findOne(String userName);
 	
 	
 	/**

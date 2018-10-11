@@ -1,4 +1,4 @@
-app.controller("baseController",function($scope){
+app.controller("baseController",function($scope,userService){
 
     //分页控件配置
     $scope.paginationConf = {
@@ -54,4 +54,17 @@ app.controller("baseController",function($scope){
         return value;
     }
 
+
+    // 查询当前登录用户
+    $scope.loginUser = "";
+    $scope.showName = function () {
+        userService.showName().success(function(response){
+            $scope.loginUser = JSON.parse(response);
+        });
+    };
+
+    // 登出
+    $scope.loginOut = function(){
+        location.href="/logout/cas";
+    };
 });
