@@ -239,7 +239,7 @@
                                     <tbody>
                                         <tr ng-repeat="orderItemInfo in orderInfo.orderItems">
                                             <td width="35%">
-                                                <div class="typographic"><img src="img/goods.png"/>
+                                                <div class="typographic"><img src="{{orderItemInfo.orderItem.picPath}}"/>
                                                     <a href="#" class="block-text">{{orderItemInfo.orderItem.title}}</a>
                                                     <span class="guige">规格：{{orderItemInfo.item.spec}}</span>
                                                 </div>
