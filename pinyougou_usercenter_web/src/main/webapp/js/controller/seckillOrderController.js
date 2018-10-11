@@ -6,6 +6,7 @@ app.controller("seckillOrderController", function ($scope,$controller, $location
     $scope.searchSecKillOrderList = function () {
         seckillOrderService.findAll().success(function (response) {
             $scope.list = response;
+            alert( $scope.list);
         });
     };
 
