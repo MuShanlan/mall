@@ -122,5 +122,19 @@ app.controller('orderController' ,function($scope,$controller   ,orderService){
             $scope.pageLabel.push(i);
         }
     }
-    
+
+    $scope.payNow = function(orderId){
+        location.href = "pay.html#?orderId="+orderId;
+    };
+
+    $scope.delete = function(orderId){
+    	orderService.dele(orderId).success(function (response) {
+            if(response.success){
+                // 刷新页面
+                $scope.searchSecKillOrderList();
+            }else{
+                alert(response.message);
+            }
+        });
+	}
 });	

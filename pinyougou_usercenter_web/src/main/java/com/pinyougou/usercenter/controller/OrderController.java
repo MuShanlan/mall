@@ -86,18 +86,18 @@ public class OrderController {
 	}
 	
 	/**
-	 * 批量删除
+	 * 订单取消
 	 * @param ids
 	 * @return
 	 */
 	@RequestMapping("/delete")
-	public Result delete(Long [] ids){
+	public Result delete(Long ids){
 		try {
 			orderService.delete(ids);
-			return new Result(true, "删除成功"); 
+			return new Result(true, "关闭成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new Result(false, "删除失败");
+			return new Result(false, "关闭失败");
 		}
 	}
 	

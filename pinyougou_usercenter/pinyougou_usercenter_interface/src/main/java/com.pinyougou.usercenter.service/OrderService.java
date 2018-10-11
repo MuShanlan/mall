@@ -5,6 +5,8 @@ import java.util.Map;
 import com.pinyougou.pojo.TbOrder;
 
 import com.pinyougou.common.PageResult;
+import com.pinyougou.usercenter.exception.OrderException;
+
 /**
  * 服务层接口
  * @author Administrator
@@ -47,10 +49,10 @@ public interface OrderService {
 	
 	
 	/**
-	 * 批量删除
-	 * @param ids
+	 *  取消订单
+	 * @param id
 	 */
-	public void delete(Long[] ids);
+	public void delete (Long id) throws OrderException;
 
 	/**
 	 * 分页

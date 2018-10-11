@@ -27,7 +27,7 @@ app.service('orderService',function($http){
 	}
 	//搜索
 	this.search=function(searchMap){
-		return $http.post('../order/findPageByOrderStatus', searchMap);3
+		return $http.post('../order/findPageByOrderStatus', searchMap);
 	}
 	//获取登录用户名
 	this.getLoginName = function () {
