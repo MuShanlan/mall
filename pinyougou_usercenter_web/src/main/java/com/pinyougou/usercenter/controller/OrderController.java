@@ -115,7 +115,8 @@ public class OrderController {
 
 	@RequestMapping("/getLoginName")
 	public String getLoginName(){
-		return SecurityContextHolder.getContext().getAuthentication().getName();
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        return name;
 	}
 
 	/**
@@ -125,7 +126,8 @@ public class OrderController {
 	 */
 	@RequestMapping("/findPageByOrderStatus")
 	public Map findPageByOrderStatus(@RequestBody Map searchMap){
-		return orderService.findPageByOrderStatus(getLoginName(),searchMap);
+        String loginName = getLoginName();
+        return orderService.findPageByOrderStatus(loginName,searchMap);
 	}
 	
 }

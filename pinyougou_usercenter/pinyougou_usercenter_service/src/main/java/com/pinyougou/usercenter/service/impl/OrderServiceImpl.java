@@ -180,14 +180,15 @@ public class OrderServiceImpl implements OrderService {
 				Map<String,Object> orderItemInfo = new HashMap<>();
 				orderItemInfo.put("orderItem",tbOrderItem);
 				TbItem tbItem = itemMapper.selectByPrimaryKey(tbOrderItem.getItemId());
-				if(tbItem.getSpec()!=null && !"".equals(tbItem.getSpec())){
-					Map specMap =(Map) JSON.parse(tbItem.getSpec());
-					StringBuilder sb = new StringBuilder();
-					for (Object o : specMap.keySet()) {
-						sb.append(o.toString()+":"+specMap.get(o).toString()+" ");
-					}
-					tbItem.setSpec(sb.toString());
-				}
+				String spec = tbItem.getSpec();
+//				if(spec!=null && !"".equals(spec.trim())){
+//					Map specMap = (Map)JSON.parse(spec);
+//					StringBuilder sb = new StringBuilder();
+//					for (Object o : specMap.keySet()) {
+//						sb.append(o.toString()+":"+specMap.get(o).toString()+" ");
+//					}
+//					tbItem.setSpec(sb.toString());
+//				}
 				orderItemInfo.put("item",tbItem);
 				orderItems.add(orderItemInfo);
 			}
