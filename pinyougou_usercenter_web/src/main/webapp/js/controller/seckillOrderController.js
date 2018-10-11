@@ -1,4 +1,6 @@
-app.controller("seckillOrderController", function ($scope, $location, $interval, seckillOrderService) {
+app.controller("seckillOrderController", function ($scope,$controller, $location, $interval, seckillOrderService) {
+
+    $controller('baseController',{$scope:$scope});//继承
 
     //获取秒杀商品列表
     $scope.searchSecKillOrderList = function () {
@@ -24,18 +26,6 @@ app.controller("seckillOrderController", function ($scope, $location, $interval,
         });
     };
 
-    // 查询当前登录用户
-    $scope.loginUser = {};
-    $scope.checkLoginUser = function () {
-        seckillOrderService.checkLoginUser().success(function(response){
-            $scope.loginUser = JSON.parse(response);
-        });
-    };
-
-    // 登出
-    $scope.loginOut = function(){
-        location.href="/logout/cas";
-    };
 
     // 订单详情
     $scope.orderDetail = function(orderId){

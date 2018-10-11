@@ -159,19 +159,29 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public Map findPageByOrderStatus(String loginName, Map searchMap) {
+
 		Page page = PageHelper.startPage((Integer)searchMap.get("page"), (Integer)searchMap.get("pageSize"));
+
 		TbOrderExample orderExample = new TbOrderExample();
-		Criteria criteria = orderExample.createCriteria().andUserIdEqualTo(loginName);
-		String status = (String) searchMap.get("status");
+        Criteria criteria = orderExample.createCriteria();
+        //根据当前登录用户查询
+        criteria.andUserIdEqualTo(loginName);
+        String status = (String) searchMap.get("status");
+		//根据状态查询
 		if (status!=null && !"".equals(status)){
 			criteria.andStatusEqualTo(status);
 		}
+		//根据创建时间排序条件
 		orderExample.setOrderByClause("create_time desc");
 		List<TbOrder> orderList = orderMapper.selectByExample(orderExample);
 		List<Map> orders = new ArrayList<>();
+
 		for (TbOrder tbOrder : orderList) {
-			Map<String,Object> orderInfo = new HashMap<>();
+
+			Map<String,Object> orderInfo = new HashMap<String,Object>();
+
 			orderInfo.put("order",tbOrder);
+
 			TbOrderItemExample orderItemExample = new TbOrderItemExample();
 			orderItemExample.createCriteria().andOrderIdEqualTo(tbOrder.getOrderId());
 			List<TbOrderItem> orderItemList = orderItemMapper.selectByExample(orderItemExample);

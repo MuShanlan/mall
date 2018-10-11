@@ -64,4 +64,18 @@ public interface AddressService {
 	 * @return
 	 */
 	List<TbAddress> findAddressByLoginUser(String loginUser);
+
+	/**
+	 * 根据当前登录用户查询出该用户所拥有的地址
+	 * @param name
+	 * @return  List<TbAddress> 地址集合
+	 */
+	List<TbAddress> findUserAddressAll(String name);
+
+    /**
+     * 删除地址
+     * @param id
+     * @return
+     */
+    void deleteAddress(Long id);
 }

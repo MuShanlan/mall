@@ -4,4 +4,7 @@ app.service("addressService",function ($http) {
         return $http.get("../address/findAddressByLoginUser");
     }
 
+    this.saveAddress = function (entity) {
+        return $http.post("../address/saveAddress",entity);
+    }
 });

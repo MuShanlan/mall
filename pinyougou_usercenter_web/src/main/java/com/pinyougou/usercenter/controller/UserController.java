@@ -1,18 +1,18 @@
-package com.pinyougou.user.controller;
+package com.pinyougou.usercenter.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.pinyougou.common.PageResult;
 import com.pinyougou.common.PhoneFormatCheckUtils;
 import com.pinyougou.common.Result;
+import com.pinyougou.pojo.TbAddress;
 import com.pinyougou.pojo.TbUser;
+import com.pinyougou.user.service.AddressService;
 import com.pinyougou.user.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * controller
@@ -25,14 +25,18 @@ public class UserController {
 
 	@Reference(timeout = 30000)
 	private UserService userService;
+	@Reference(timeout = 30000)
+	private AddressService addressService;
+
+
 	
 	/**
 	 * 返回全部列表
 	 * @return
 	 */
 	@RequestMapping("/findAll")
-	public List<TbUser> findAll(){			
-		return userService.findAll(name);
+	public List<TbUser> findAll(){
+		return userService.findAll();
 	}
 	
 	
@@ -78,8 +82,11 @@ public class UserController {
 	@RequestMapping("/update")
 	public Result update(@RequestBody TbUser user){
 		try {
+			String name = SecurityContextHolder.getContext().getAuthentication().getName();
+			TbUser tbUser = userService.findOne(name);
+			user.setId(tbUser.getId());
 			userService.update(user);
-			return new Result(true, "修改成功");
+			return new Result(true, "修改成功，请重新登录！");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Result(false, "修改失败");
@@ -88,14 +95,23 @@ public class UserController {
 	
 	/**
 	 * 获取实体
-	 * @param id
 	 * @return
 	 */
 	@RequestMapping("/findOne")
-	public TbUser findOne(Long id){
-		return userService.findOne(id);		
+	public TbUser findOne(){
+		String name = SecurityContextHolder.getContext().getAuthentication().getName();
+		return userService.findOne(name);
 	}
-	
+
+	/**
+	 * 获取实体
+	 * @return
+	 */
+	@RequestMapping("/findAddressOne")
+	public TbAddress findAddressOne(Long id){
+		return addressService.findOne(id);
+	}
+
 	/**
 	 * 批量删除
 	 * @param ids
@@ -111,7 +127,22 @@ public class UserController {
 			return new Result(false, "删除失败");
 		}
 	}
-	
+	/**
+	 * 删除地址
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/deleteAddress")
+	public Result deleteAddress(Long id){
+		try {
+			addressService.deleteAddress(id);
+			return new Result(true, "删除成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Result(false, "删除失败");
+		}
+	}
+
 		/**
 	 * 查询+分页
 	 * @param
@@ -137,16 +168,28 @@ public class UserController {
 
 	//获取当前登录者用户信息的
 	@RequestMapping("/showName")
-	public Map showName(){
+	public String showName(){
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        Map map = new HashMap();
-        map.put("userName",name);
-        return map;
+        return name;
     }
 
-	@RequestMapping("/getUserName")
-	public String getUserName(){
-		return SecurityContextHolder.getContext().getAuthentication().getName();
+	@RequestMapping("/findUserAddressAll")
+	public List<TbAddress> findUserAddressAll(){
+		String name = SecurityContextHolder.getContext().getAuthentication().getName();
+		return addressService.findUserAddressAll(name);
 	}
+	@RequestMapping("/addAddress")
+	public Result addAddress(@RequestBody TbAddress address){
+		String name = SecurityContextHolder.getContext().getAuthentication().getName();
+		try{
+			address.setUserId(name);
+			addressService.add(address);
+			return new Result(true,"添加地址成功！");
+		}catch (Exception e){
+			e.printStackTrace();
+			return new Result(false,"添加地址失败！");
+		}
+	}
+
 
 }

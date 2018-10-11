@@ -16,11 +16,13 @@
 
     <!-- 把提出去的JS 引回来-->
     <script type="text/javascript" src="/js/base.js"></script>
+    <script type="text/javascript" src="/js/service/userService.js"></script>
     <script type="text/javascript" src="/js/service/seckillOrderService.js"></script>
+    <script type="text/javascript" src="/js/controller/baseController.js"></script>
     <script type="text/javascript" src="/js/controller/seckillOrderController.js"></script>
 </head>
 <body class="hold-transition skin-red sidebar-mini"
-      ng-app="pinyougou" ng-controller="seckillOrderController" ng-init="searchSecKillOrderList();checkLoginUser()">
+      ng-app="pinyougou" ng-controller="seckillOrderController" ng-init="searchSecKillOrderList();showName()">
 <!-- 头部栏位 -->
 <!--页面顶部-->
 <div id="nav-bottom">

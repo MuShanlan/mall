@@ -14,9 +14,6 @@ import com.pinyougou.user.service.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
 import java.util.Date;
@@ -37,6 +34,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
     private RedisTemplate redisTemplate;
+
 
     @Override
     public boolean checkSmsCode(String phone, String smsCode) {
@@ -118,17 +116,25 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public void update(TbUser user){
-		userMapper.updateByPrimaryKey(user);
+		String md5Password = DigestUtils.md5Hex(user.getPassword());
+		user.setPassword(md5Password);
+		userMapper.updateByPrimaryKeySelective(user);
 	}	
 	
 	/**
 	 * 根据ID获取实体
-	 * @param id
+	 * @param userName
 	 * @return
 	 */
 	@Override
-	public TbUser findOne(Long id){
-		return userMapper.selectByPrimaryKey(id);
+	public TbUser findOne(String userName){
+		TbUserExample example = new TbUserExample();
+		example.createCriteria().andUsernameEqualTo(userName);
+		List<TbUser> tbUsers = userMapper.selectByExample(example);
+		for (TbUser tbUser : tbUsers) {
+			return tbUser;
+		}
+		return null;
 	}
 
 	/**

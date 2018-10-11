@@ -10,9 +10,20 @@
 
     <link rel="stylesheet" type="text/css" href="css/webbase.css" />
     <link rel="stylesheet" type="text/css" href="css/pages-seckillOrder.css" />
-</head>
+	<!-- 引入AngularJS-->
+	<script type="text/javascript" src="/plugins/angularjs/angular.min.js"></script>
 
-<body>
+	<!-- 把提出去的JS 引回来-->
+	<script type="text/javascript" src="/js/base.js"></script>
+	<script type="text/javascript" src="/js/service/userService.js"></script>
+	<script type="text/javascript" src="/js/service/seckillOrderService.js"></script>
+	<script type="text/javascript" src="/js/controller/baseController.js"></script>
+	<script type="text/javascript" src="/js/controller/userController.js"></script>
+
+</head>
+<body class="hold-transition skin-red sidebar-mini"
+	  ng-app="pinyougou" ng-controller="userController" ng-init="showName()">
+
     <!-- 头部栏位 -->
     <!--页面顶部-->
 <div id="nav-bottom">
@@ -279,8 +290,8 @@ $(function(){
                     <div class="person-info">
                         <div class="person-photo"><img src="img/_/photo.png" alt=""></div>
                         <div class="person-account">
-                            <span class="name">Michelle</span>
-                            <span class="safe">账户安全</span>
+							<span class="name">{{loginUser}}</span>
+							<span class="safe"><a ng-click="loginOut()">退出登录 </a></span>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -288,7 +299,6 @@ $(function(){
                         <dl>
 							<dt><i>·</i> 订单中心</dt>
 							<dd ><a href="home-index.html"   >我的订单</a></dd>
-							<dd ><a href="home-seckill.html" >秒杀订单</a></dd>
 							<dd><a href="home-order-pay.html" >待付款</a></dd>
 							<dd><a href="home-order-send.html"  >待发货</a></dd>
 							<dd><a href="home-order-receive.html" >待收货</a></dd>
@@ -323,8 +333,8 @@ $(function(){
                                     <div class="control-group">
                                         <label for="inputusername" class="control-label">用户名：</label>
                                         <div class="controls">
-                                            <input id="pwdid" class="fn-tinput" data-rule-remote="http://www.baidu.com" type="password" name="OldPassword" placeholder="输入昵称"
-                                                required data-msg-required="请输入昵称" minlength="6" data-msg-minlength="至少输入6个字符"
+                                            <input id="pwdid"  class="fn-tinput" data-rule-remote="http://www.baidu.com" type="text" ng-model="entity.username" name="OldPassword" placeholder="输入用户名"
+                                                required data-msg-required="请输入用户名" minlength="6" data-msg-minlength="至少输入6个字符"
                                             />
 
                                         </div>
@@ -332,20 +342,20 @@ $(function(){
                                     <div class="control-group">
                                         <label for="inputPassword" class="control-label">密码：</label>
                                         <div class="controls">
-                                            <input class="fn-tinput" type="password" name="password" value="" placeholder="新密码" required id="password" data-rule-remote="php.php">
+                                            <input class="fn-tinput"  type="password" ng-model="entity.password" name="password" value="" placeholder="新密码" required id="password" data-rule-remote="php.php">
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label for="inputRepassword" class="control-label">重复密码：</label>
                                         <div class="controls">
-                                            <input class="fn-tinput" type="password" name="confirm_password" value="" placeholder="确认新密码" required equalTo="#password">
+                                            <input class="fn-tinput" type="password"  name="confirm_password" value="" placeholder="确认新密码" required equalTo="#password">
                                         </div>
                                     </div>
 
                                     <div class="control-group">
                                         <label class="control-label"></label>
                                         <div class="controls">
-                                            <button type="submit" class="sui-btn btn-primary">提交按钮</button>
+                                            <button type="submit" class="sui-btn btn-primary" ng-click="savSubmit()">提交</button>
                                         </div>
                                     </div>
                                 </form>
