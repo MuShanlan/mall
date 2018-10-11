@@ -181,14 +181,14 @@ public class OrderServiceImpl implements OrderService {
 				orderItemInfo.put("orderItem",tbOrderItem);
 				TbItem tbItem = itemMapper.selectByPrimaryKey(tbOrderItem.getItemId());
 				String spec = tbItem.getSpec();
-//				if(spec!=null && !"".equals(spec.trim())){
-//					Map specMap = (Map)JSON.parse(spec);
-//					StringBuilder sb = new StringBuilder();
-//					for (Object o : specMap.keySet()) {
-//						sb.append(o.toString()+":"+specMap.get(o).toString()+" ");
-//					}
-//					tbItem.setSpec(sb.toString());
-//				}
+				if(spec!=null && !"".equals(spec.trim())){
+					Map specMap = (Map)JSON.parse(spec);
+					StringBuilder sb = new StringBuilder();
+					for (Object o : specMap.keySet()) {
+						sb.append(o.toString()+":"+specMap.get(o).toString()+" ");
+					}
+					tbItem.setSpec(sb.toString());
+				}
 				orderItemInfo.put("item",tbItem);
 				orderItems.add(orderItemInfo);
 			}
