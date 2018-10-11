@@ -271,10 +271,10 @@
                                             </td>
                                             <td width="10%" class="center" ng-if="$index==0" rowspan="{{orderInfo.orderItems.length}}">
                                                 <ul class="unstyled">
-													<li ng-if="orderInfo.order.status==1"><a ng-click="payNow(entity.seckillOrder.strId)" class="sui-btn btn-info">立即付款</a></li>
-                                                    <li ng-if="orderInfo.order.status==2 || orderInfo.order.status==3"><a ng-click="payNow(entity.seckillOrder.strId)" class="sui-btn btn-info">提醒发货</a></li>
-                                                    <li ng-if="orderInfo.order.status==4"><a ng-click="payNow(entity.seckillOrder.strId)" class="sui-btn btn-info">确认收货</a></li>
-                                                    <li ng-if="orderInfo.order.status>1"><span ng-click="delete(entity.seckillOrder.strId)" class="sui-btn" >取消订单</span></li>
+													<li ng-if="orderInfo.order.status==1"><a ng-click="payNow(orderInfo.order.strOrderId)" class="sui-btn btn-info">立即付款</a></li>
+                                                    <li ng-if="orderInfo.order.status==2 || orderInfo.order.status==3"><a ng-click="payNow(orderInfo.order.strOrderId)" class="sui-btn btn-info">提醒发货</a></li>
+                                                    <li ng-if="orderInfo.order.status==4"><a ng-click="payNow(orderInfo.order.strOrderId)" class="sui-btn btn-info">确认收货</a></li>
+                                                    <li ng-if="orderInfo.order.status>1"><span ng-click="delete(orderInfo.order.strOrderId)" class="sui-btn" >取消订单</span></li>
                                                 </ul>
                                             </td>
                                         </tr>
